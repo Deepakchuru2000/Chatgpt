@@ -28,7 +28,9 @@ struct VideographyView: View {
                             .cornerRadius(10)
                             .shadow(radius: 2)
                             .onTapGesture {
-                                selectedVideo = video.url
+                                withAnimation {
+                                    selectedVideo = video.url
+                                }
                             }
                     }
                 }
@@ -37,11 +39,15 @@ struct VideographyView: View {
             if let url = selectedVideo {
                 VideoPlayer(player: AVPlayer(url: url))
                     .edgesIgnoringSafeArea(.all)
+                    .transition(.opacity)
                     .onTapGesture {
-                        selectedVideo = nil
+                        withAnimation {
+                            selectedVideo = nil
+                        }
                     }
             }
         }
+        .animation(.easeInOut, value: selectedVideo)
     }
 }
 

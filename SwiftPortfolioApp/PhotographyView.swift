@@ -39,20 +39,28 @@ struct PhotographyView: View {
                             .cornerRadius(10)
                             .shadow(radius: 2)
                             .onTapGesture {
-                                selectedImage = img
+                                withAnimation {
+                                    selectedImage = img
+                                }
                             }
                     }
                 }
                 .padding()
             }
             if let img = selectedImage {
-                Color.black.opacity(0.8).ignoresSafeArea()
+                Color.black.opacity(0.8)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
                 ZoomableImage(imageName: img)
+                    .transition(.scale)
                     .onTapGesture {
-                        selectedImage = nil
+                        withAnimation {
+                            selectedImage = nil
+                        }
                     }
             }
         }
+        .animation(.easeInOut, value: selectedImage)
     }
 }
 

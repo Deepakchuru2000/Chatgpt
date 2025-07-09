@@ -29,7 +29,9 @@ struct PaperToysView: View {
                                 .cornerRadius(10)
                                 .shadow(radius: 2)
                                 .onTapGesture {
-                                    selectedVideo = toy.videoURL
+                                    withAnimation {
+                                        selectedVideo = toy.videoURL
+                                    }
                                 }
                             Text("Watch Assembly")
                                 .foregroundColor(.accent)
@@ -41,11 +43,15 @@ struct PaperToysView: View {
             if let url = selectedVideo {
                 VideoPlayer(player: AVPlayer(url: url))
                     .edgesIgnoringSafeArea(.all)
+                    .transition(.opacity)
                     .onTapGesture {
-                        selectedVideo = nil
+                        withAnimation {
+                            selectedVideo = nil
+                        }
                     }
             }
         }
+        .animation(.easeInOut, value: selectedVideo)
     }
 }
 

@@ -33,7 +33,7 @@ struct ContentView: View {
                     Text("Paper Toys")
                 }
         }
-        .accentColor(Color("Accent"))
+        .accentColor(.accent)
     }
 }
 
